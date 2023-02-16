@@ -3,7 +3,7 @@ import pymongo
 from pymongo import MongoClient
 import certifi
 
-CONNECTION_STRING = "mongodb+srv://admin:Fammientrare1-@moodlerec.w2j6m9t.mongodb.net/?retryWrites=true&w=majority"
+CONNECTION_STRING = "mongodb+srv://<usr>:<psw>@moodlerec.w2j6m9t.mongodb.net/?retryWrites=true&w=majority"
 client = MongoClient(CONNECTION_STRING, tlsCAFile=certifi.where())
 dbname = client['moodlerec']
 collection = dbname['wisconline']
