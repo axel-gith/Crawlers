@@ -19,6 +19,7 @@ class MerlotItem(scrapy.Item):
     license = scrapy.Field()
     date_added = scrapy.Field()
     material_type = scrapy.Field()
+    format = scrapy.Field()
     lor = scrapy.Field()
     rating = scrapy.Field()
     number_visits = scrapy.Field()

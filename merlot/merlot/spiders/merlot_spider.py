@@ -34,6 +34,12 @@ class MerlotSpider(Spider):
         if any(x in materialType for x in self.categories_to_exclude):
             print("Not wanted course. Skipping")
         else:
+            # =========== FORMAT =============
+            formats = []
+            for index, frmt in enumerate(response.xpath("//dd/span/a[contains(@href,'techncialFormat')]/text()").extract()):
+                formats.append(frmt)
+            if not formats:
+                formats = ['N/A']
             # =========== RATING =============
             try:
                 rating = response.xpath("//div[@class='card quality-box']//li[2]/@title").extract()[0].split(" ")[3]
@@ -70,6 +76,7 @@ class MerlotSpider(Spider):
             item["subject"] = response.xpath("//li[contains(@itemprop,'educationalAlignment')]//span/a/text()").extract()
             item["level"] = response.xpath("//dd[contains(@itemprop,'educationalRole')]//span/a/text()").extract()
             item["material_type"] = materialType
+            item['format'] = formats
             item["author"] = formattedAuthors
             item["date_added"] = response.xpath("//dl[contains(@class,'metadata-list')]/dd[2]/text()").extract()[0]
             item["license"] = courseLicense

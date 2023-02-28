@@ -5,7 +5,7 @@ import certifi
 
 class MongoDBPipeline:
 
-    collection = 'oercommons'
+    collection = 'oercommons_test'
 
     def __init__(self, mongodb_uri, mongodb_db):
         self.mongodb_uri = mongodb_uri
@@ -31,5 +31,8 @@ class MongoDBPipeline:
 
     def process_item(self, item, spider):
         data = dict(OercommonsItem(item))
-        self.db[self.collection].insert_one(data)
+        try:
+            self.db[self.collection].insert_one(data)
+        except pymongo.errors.DuplicateKeyError:
+            print("duplicate")
         return item
